@@ -1,182 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login</title>
     <style>
-      /* Base layout */
-      :root {
-        --bg-start: #1452d1;  /* deep blue */
-        --bg-end: #d12b7b;    /* pink */
-        --panel: 255, 255, 255; /* rgb base for glass */
-        --panel-alpha: 0.14;
-        --panel-border: 0.28;
-        --text: #ffffff;
-        --muted: #e6e6e6;
-        --accent: rgba(255,255,255,0.75);
-        --radius: 16px;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      html, body {
-        height: 100%;
-      }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #87CEEB, #1a237e);
+            overflow: hidden;
+        }
 
-      body {
-        margin: 0;
-        font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        color: var(--text);
-        display: grid;
-        place-items: center;
-        background:
-          /* subtle wave lines using repeating radial gradients */
-          radial-gradient(1200px 600px at -10% 0%, rgba(255,255,255,0.06) 0 1px, transparent 1px 100%),
-          radial-gradient(1200px 600px at 110% 100%, rgba(255,255,255,0.06) 0 1px, transparent 1px 100%),
-          linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
-        overflow: hidden;
-      }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-      /* Login card */
-      .card {
-        width: min(92vw, 380px);
-        padding: 28px;
-        border-radius: var(--radius);
-        background: rgba(var(--panel), var(--panel-alpha));
-        box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid rgba(var(--panel), var(--panel-border));
-      }
+        .user-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-      h1 {
-        margin: 6px 0 18px 0;
-        font-size: 26px;
-        font-weight: 600;
-        text-align: center;
-        letter-spacing: 0.2px;
-      }
+        .user-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
 
-      .field {
-        display: grid;
-        gap: 8px;
-        margin-bottom: 14px;
-      }
+        h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
 
-      label {
-        font-size: 13px;
-        color: var(--accent);
-      }
+        .input-group {
+            width: 100%;
+            margin-bottom: 25px;
+            position: relative;
+        }
 
-      input[type="text"],
-      input[type="password"] {
-        height: 42px;
-        padding: 0 12px;
-        color: #ffffff;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.25);
-        border-radius: 10px;
-        outline: none;
-        transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      }
+        .input-icon {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
 
-      input::placeholder { color: rgba(255,255,255,0.6); }
+        .input-field {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid white;
+            padding: 10px 0 10px 30px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
 
-      input:focus {
-        border-color: rgba(255,255,255,0.6);
-        background: rgba(255,255,255,0.12);
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.12);
-      }
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
 
-      .row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        margin: 8px 0 16px 0;
-        color: var(--accent);
-        font-size: 13px;
-      }
+        .input-label {
+            color: white;
+            font-size: 13px;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-      .row a {
-        color: var(--accent);
-        text-decoration: none;
-      }
+        .input-wrapper {
+            position: relative;
+        }
 
-      .row a:hover { text-decoration: underline; }
+        .options-row {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 13px;
+        }
 
-      .remember {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        user-select: none;
-      }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            cursor: pointer;
+        }
 
-      input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
-        accent-color: #ffffff;
-      }
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            border: 1px solid white;
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
 
-      button[type="submit"] {
-        width: 100%;
-        height: 44px;
-        border: 0;
-        border-radius: 999px;
-        color: #1b1b1b;
-        background: #ffffff;
-        font-weight: 600;
-        letter-spacing: 0.2px;
-        cursor: pointer;
-        transition: transform 0.06s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-      }
+        .checkbox input {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
 
-      button[type="submit"]:hover { opacity: 0.95; }
-      button[type="submit"]:active { transform: translateY(1px); }
+        .checkbox input:checked + .checkmark {
+            display: block;
+        }
 
-      .byline {
-        margin-top: 14px;
-        font-size: 12px;
-        color: rgba(255,255,255,0.7);
-        text-align: center;
-      }
+        .checkmark {
+            display: none;
+            position: absolute;
+            left: 2px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
 
-      /* Prefer reduced motion */
-      @media (prefers-reduced-motion: reduce) {
-        * { transition: none !important; }
-      }
+        .forgot-password {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background: #1565C0;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-button:hover {
+            background: #0d47a1;
+        }
+
+        .login-button:active {
+            transform: scale(0.98);
+        }
+
+        .divider {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        .google-signin-button {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: none;
+            border-radius: 4px;
+            color: #4285f4;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: box-shadow 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .google-signin-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .google-signin-button:active {
+            transform: scale(0.98);
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            display: block;
+        }
+
+        .message.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            display: block;
+        }
     </style>
-  </head>
-  <body>
-    <form class="card" onsubmit="event.preventDefault(); alert('Logged in!');">
-      <h1>Login</h1>
+</head>
+<body>
+    <div class="login-container">
+        <div class="user-icon">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+            </svg>
+        </div>
+        
+        <h1>Customer Login</h1>
 
-      <div class="field">
-        <label for="username">User Name</label>
-        <input id="username" name="username" type="text" placeholder="Enter your username" autocomplete="username" required />
-      </div>
+        <form id="loginForm" style="width: 100%;">
+            <div class="input-group">
+                <label class="input-label" for="email">Email ID</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <input type="email" id="email" name="email" class="input-field" placeholder="Enter your email" required>
+                </div>
+            </div>
 
-      <div class="field">
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required />
-      </div>
+            <div class="input-group">
+                <label class="input-label" for="password">Password</label>
+                <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    <input type="password" id="password" name="password" class="input-field" placeholder="Enter your password" required>
+                </div>
+            </div>
 
-      <div class="row">
-        <label class="remember">
-          <input type="checkbox" name="remember" />
-          <span>Remember me</span>
-        </label>
-        <a href="#" aria-label="Forgot password">Forgot?</a>
-      </div>
+            <div class="options-row">
+                <label class="remember-me">
+                    <div class="checkbox">
+                        <input type="checkbox" id="remember" name="remember">
+                        <svg class="checkmark" viewBox="0 0 24 24">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
 
-      <button type="submit">Login</button>
-      <div class="byline">Demo page inspired by your mockup</div>
-    </form>
-  </body>
-  </html>
+            <button type="submit" class="login-button">Login</button>
+        </form>
 
+        <div class="divider">
+            <span>OR</span>
+        </div>
 
+        <button id="googleSignIn" class="google-signin-button">
+            <svg class="google-icon" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            <span>Sign in with Google</span>
+        </button>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+        /*
+         * IMPORTANT: To fix "Error 400: invalid_request", configure Google Cloud Console:
+         * 
+         * 1. Go to https://console.cloud.google.com/
+         * 2. Select your project (or create one)
+         * 3. Go to APIs & Services > Credentials
+         * 4. Find your OAuth 2.0 Client ID and click Edit
+         * 5. Under "Authorized JavaScript origins", add:
+         *    - http://localhost (for local testing)
+         *    - http://localhost:8000 (if using a local server)
+         *    - Your actual domain (for production)
+         *    NOTE: file:// URLs are NOT allowed - you must serve via HTTP
+         * 6. Under "Authorized redirect URIs", add:
+         *    - http://localhost (for local testing)
+         *    - Your actual domain (for production)
+         * 7. Save the changes
+         * 
+         * If testing locally, you MUST use a local server:
+         * - Python: python -m http.server 8000
+         * - Node.js: npx http-server -p 8000
+         * Then access: http://localhost:8000/index.html
+         */
+
+        // Regular form login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            // Handle login logic here
+            console.log('Login submitted', { email, password });
+            showMessage('Regular login submitted successfully!', 'success');
+        });
+
+        // Google Sign-In configuration
+        function initializeGoogleSignIn() {
+            if (typeof google === 'undefined' || !google.accounts) {
+                console.error('Google Identity Services not loaded');
+                return;
+            }
+
+            google.accounts.id.initialize({
+                client_id: '529577866104-nqubn9rr85eqarge93sauovbeqgqr60r.apps.googleusercontent.com',
+                callback: handleCredentialResponse,
+                auto_select: false,
+                cancel_on_tap_outside: true
+            });
+
+            // Use credential-based sign-in for button click
+            document.getElementById('googleSignIn').addEventListener('click', function() {
+                google.accounts.id.prompt((notification) => {
+                    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                        // If One Tap is not available, use popup flow
+                        google.accounts.oauth2.initTokenClient({
+                            client_id: '529577866104-nqubn9rr85eqarge93sauovbeqgqr60r.apps.googleusercontent.com',
+                            scope: 'email profile openid',
+                            callback: handleTokenResponse,
+                            error_callback: function(error) {
+                                console.error('OAuth error:', error);
+                                showMessage('Authentication failed. Please check your Google Cloud Console settings.', 'error');
+                            }
+                        }).requestAccessToken();
+                    }
+                });
+            });
+        }
+
+        // Handle Google Sign-In response (credential flow)
+        function handleCredentialResponse(response) {
+            if (response.credential) {
+                // Decode the JWT token to get user info
+                const payload = parseJwt(response.credential);
+                console.log('Google Sign-In successful:', payload);
+                
+                showMessage(`Welcome, ${payload.name}! (${payload.email})`, 'success');
+                
+                // Here you can send the credential to your backend for verification
+                // fetch('/api/auth/google', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ credential: response.credential })
+                // });
+            } else {
+                showMessage('Authentication failed. Please try again.', 'error');
+            }
+        }
+
+        // Handle OAuth2 token response (fallback for button click)
+        function handleTokenResponse(tokenResponse) {
+            if (tokenResponse.error) {
+                console.error('Google OAuth error:', tokenResponse.error);
+                showMessage('Authentication error: ' + tokenResponse.error + '. Please check Google Cloud Console settings.', 'error');
+                return;
+            }
+
+            if (tokenResponse && tokenResponse.access_token) {
+                // Fetch user info using the access token
+                fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                    headers: {
+                        'Authorization': `Bearer ${tokenResponse.access_token}`
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user info');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Google OAuth successful:', data);
+                    showMessage(`Welcome, ${data.name}! (${data.email})`, 'success');
+                    
+                    // Here you can send the user info to your backend
+                    // fetch('/api/auth/google', {
+                    //     method: 'POST',
+                    //     headers: { 'Content-Type': 'application/json' },
+                    //     body: JSON.stringify({ 
+                    //         access_token: tokenResponse.access_token,
+                    //         user: data 
+                    //     })
+                    // });
+                })
+                .catch(error => {
+                    console.error('Error fetching user info:', error);
+                    showMessage('Error during Google authentication: ' + error.message, 'error');
+                });
+            }
+        }
+
+        // Wait for Google Identity Services to load
+        window.onload = function() {
+            // Check if Google script is already loaded
+            if (typeof google !== 'undefined' && google.accounts) {
+                initializeGoogleSignIn();
+            } else {
+                // Wait for script to load
+                const checkGoogle = setInterval(function() {
+                    if (typeof google !== 'undefined' && google.accounts) {
+                        clearInterval(checkGoogle);
+                        initializeGoogleSignIn();
+                    }
+                }, 100);
+                
+                // Timeout after 5 seconds
+                setTimeout(function() {
+                    clearInterval(checkGoogle);
+                    if (typeof google === 'undefined' || !google.accounts) {
+                        console.error('Google Identity Services failed to load');
+                        showMessage('Google Sign-In service is not available. Please refresh the page.', 'error');
+                    }
+                }, 5000);
+            }
+        };
+
+        // Helper function to parse JWT token
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // Show message to user
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            setTimeout(() => {
+                messageDiv.className = 'message';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
